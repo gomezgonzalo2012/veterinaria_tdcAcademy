@@ -4,6 +4,7 @@
  */
 package com.vet_tdc_academy.veterinaria.controller;
 
+import com.vet_tdc_academy.veterinaria.dto.MascoDuenioDTO;
 import com.vet_tdc_academy.veterinaria.model.Mascota;
 import com.vet_tdc_academy.veterinaria.service.IMascotaService;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -56,5 +58,26 @@ public class MascotaController {
     @GetMapping("/mascota/traerTodos")
     public List<Mascota> getMascotass(){
         return mascoService.getMascotas();
+    }
+    
+    // Mascota Duenio DTO
+    @GetMapping("/mascota/traer/dto/{id_mascota}")
+    @ResponseBody
+    public MascoDuenioDTO getMascoDTO( @PathVariable Integer id_mascota){
+        Mascota mascoEncontrado = this.findMascota(id_mascota);
+        MascoDuenioDTO mascoDTO = new MascoDuenioDTO();
+        mascoDTO.setNombre_mascota(mascoEncontrado.getNombre());
+        mascoDTO.setEspecie(mascoEncontrado.getEspecie());
+        mascoDTO.setRaza(mascoEncontrado.getRaza());
+        mascoDTO.setNombre_duenio(mascoEncontrado.getDuenio().getNombre());
+        mascoDTO.setApellido_duenio(mascoEncontrado.getDuenio().getApellido());
+        
+        return mascoDTO;
+    }
+    
+    // Buscar mascotas especie = perro & raza = caniche
+    @GetMapping("/mascota/traer/caniche")
+    public List<Mascota> findCaniche(){
+        return mascoService.findPerrosCaniche();
     }
 }

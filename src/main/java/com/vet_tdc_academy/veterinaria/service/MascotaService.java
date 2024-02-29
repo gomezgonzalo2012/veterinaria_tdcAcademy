@@ -48,11 +48,14 @@ public class MascotaService implements IMascotaService{
          this.saveMascota(masco);
     }
 
-    
-
     @Override
     public List<Mascota> getMascotas() {
         return mascoRepository.findAll();
+    }
+        // buscar mascotas especie = perro & raza = caniche
+    @Override
+    public List<Mascota> findPerrosCaniche() {
+        return mascoRepository.findPerroCaniche();
     }
     
 }

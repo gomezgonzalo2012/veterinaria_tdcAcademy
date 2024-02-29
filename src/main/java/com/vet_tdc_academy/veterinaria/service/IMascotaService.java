@@ -24,4 +24,8 @@ public interface IMascotaService {
     public Mascota findMascota(Integer id_mascota);
 //    LECTURA COLECTIVA
     public List<Mascota> getMascotas();
+    
+    // buscar mascotas especie = perro & raza = caniche
+    
+    public List<Mascota> findPerrosCaniche();
 }
